@@ -41,5 +41,5 @@
 42,Searching for Paradise,2.3333333333333335
 38,Daydream Obsession,2.4
 49,Devo: The Complete Truth About De-evolution,3.6
-23,Clifford: Clifford Saves the Day!Clifford's Fluffiest Friend Cleo,3.6666666666666665
+23,Clifford: Clifford Saves the Day! / Clifford's Fluffiest Friend Cleo,3.6666666666666665
 39,Love Reinvented,2.4

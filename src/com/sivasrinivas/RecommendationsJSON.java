@@ -21,45 +21,17 @@ import org.json.simple.JSONObject;
 
 public class RecommendationsJSON {
 
-//	String userId;
-//	//String jsonFileDirPath;
-//    Recommendation result = null;
-//	boolean userBased;
-//	boolean itemBased;
-	
-//	public RecommendationsJSON(String userId ,boolean userBased ){
-//	//	this.jsonFileDirPath = jsonFileDirPath;
-//		this.userBased = userBased;
-//		this.itemBased = itemBased;
-//		this.userId  = userId;
-//		try{
-//			if(itemBased){
-//					result = temp.formRecommendations(userId);				
-//	
-//			} else{
-//				// result = temp.formRecommendationsForUser(userId);
-//			}
-//		} catch(IOException ioe){
-//			
-//		}
-//		
-//	}
 	
 	 public static void Driver(String [] args){
-//		 if(args.length != 4){
-//			 System.out.println("Visualization: Check the usage");
-//			 usage();
-//			 return;
-//		 }
+
 		 String mahoutFileName = "UserBasedOutputnew.txt";
-		 boolean userBased = Boolean.parseBoolean(args[2]);
-		 boolean itemBased = Boolean.parseBoolean(args[3]);
-		// RecommendationsJSON rJson = new RecommendationsJSON(args[0],args[1] , userBased, itemBased);
-		// rJson.createJsonForAUser();
-		// rJson.createJsonFromMahout(mahoutFileName, userBased);
-		 String userId = "214144";
-		 createJsonForAUser(userId,false);
-		 createJsonForAUser(userId,true);
+//		 boolean userBased = Boolean.parseBoolean(args[2]);
+//		 boolean itemBased = Boolean.parseBoolean(args[3]);
+
+		 String userId = "1025579";
+		 createJsonForItemBased(userId, "F:/Dev/workspace/DocApp/WebContent/userJSON.json");
+		// RecommendationsJSON re = new RecommendationsJSON();
+		// re.createJsonForItemBased(userId);
 		 
 	 }
 	 
@@ -97,15 +69,6 @@ public class RecommendationsJSON {
 								tokens[1].replace("[" ,"");
 								tokens[1].replace("]" ,"");
 								String [] movieIdRating = tokens[1].split(",");
-								
-//								if(userbased)
-//									fileName.append("mahout_item_");
-//								else
-//									fileName.append("mahout_user_");	
-//								
-//	
-//								fileName.append(userId);
-//								fileName.append(".json");
 			
 								JSONArray jsonRecArray = new JSONArray();
 								for(int j= 0 ; j<movieIdRating.length; j++){
@@ -146,40 +109,55 @@ public class RecommendationsJSON {
 				}
 		 
 	 }
-	public static void createJsonForAUser(String userId ,boolean userBased){
+	public static void createJsonForItemBased(String userId, String filePath){
 		Recommendation result = null;
+		StringBuilder fileName = new StringBuilder(filePath);
+		try{
+			result = temp.formRecommendations(userId);	
+
+		} catch(IOException ioe){
+		
+		}
+		JSONArray jsonRecArray = new JSONArray();
+		if(result != null){
+			
+			for(int j= 0 ; j<result.recomCount; j++){
+				// adding last level of hierarchy that is rating
+				JSONObject jsonRatingObj = new JSONObject();
+				jsonRatingObj.put("name" ,result.movieid[j].rating );
+				//jsonRatingObj.put("name" ,"10");
+				JSONArray jsonRatingArray = new JSONArray();
+				jsonRatingArray.add(jsonRatingObj);
+				
+				JSONObject jsonMovieObj = new JSONObject();
+				jsonMovieObj.put("name",result.movieid[j].movieName);
+				//jsonMovieObj.put("name","100");
+				jsonMovieObj.put("children",jsonRatingArray );
+				jsonRecArray.add(jsonMovieObj);
+			}
+		}
+			JSONObject jsonUserObj = new JSONObject();
+			jsonUserObj.put("name", userId );
+			jsonUserObj.put("children", jsonRecArray);
+			System.out.println(jsonUserObj.toJSONString());
+			writeJsonFile(fileName.toString(),jsonUserObj);
+			
+		
+	}
+	public static void createJsonForUserBased(String userId){/*
+		UserRecommendation result = null;
 		StringBuilder fileName = new StringBuilder("userJSON.json");
 		try{
-		if(userBased){
-			// result = temp.formRecommendationsForUser(userId);	
 
-		} else{
-			result = temp.formRecommendations(userId);	
-//			fileName.append("item_");
-			
-		}
+			result = RecommendationManager.formRecommendations(userId);	
+
 	} catch(IOException ioe){
 		
 	}
-
-		if(result == null)
-			return;
-		
-//		StringBuilder fileNameForRecGenere = new StringBuilder("");
-		
-		//	StringBuilder fileName = new StringBuilder(jsonFileDirPath);
-		//	StringBuilder fileNameForRecGenere = new StringBuilder(jsonFileDirPath);
-		//	fileName.append("/");
-
-			
-//			fileNameForRecGenere.append("itemBasedGenereForUser_");
-
-//			fileName.append(result.userid);
-//			fileName.append(".json");
-//			fileNameForRecGenere.append(result.userid);
-//			fileNameForRecGenere.append(".json");
-			
-			JSONArray jsonRecArray = new JSONArray();
+	
+	JSONArray jsonRecArray = new JSONArray();
+		if(result != null)
+		{
 
 			for(int j= 0 ; j<result.recomCount; j++){
 				// adding last level of hierarchy that is rating
@@ -195,25 +173,15 @@ public class RecommendationsJSON {
 				jsonMovieObj.put("children",jsonRatingArray );
 				jsonRecArray.add(jsonMovieObj);
 			}
+		}
 			JSONObject jsonUserObj = new JSONObject();
 			jsonUserObj.put("name", result.userid );
 			jsonUserObj.put("children", jsonRecArray);
 			
 			writeJsonFile(fileName.toString(),jsonUserObj);
-//			
-//			// Writegenere file
-//			JSONArray jsonGenereArray = null;
-//			for(int j= 0 ; j<result.genre.length; j++){
-//				jsonGenereArray.add(result.genre[j]);
-//			}
-//			JSONObject jsonUserGenereObj = new JSONObject();
-//			jsonUserGenereObj.put("name", result.userid );
-//			jsonUserObj.put("children", jsonGenereArray);
-//			
-//			writeJsonFile(fileNameForRecGenere.toString(),jsonUserGenereObj);
 			
 		
-	}
+	*/}
 	
 	 public static void writeJsonFile(String jsonFileFullPath, JSONObject jsonUserObj ){
 			try {
