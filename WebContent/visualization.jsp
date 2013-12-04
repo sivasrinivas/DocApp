@@ -19,8 +19,8 @@
 	
 	FindTopNGenere.Driver(args);
 	
-	request.getRequestDispatcher("d3/CFW.html").forward(request, response);
-
 %>
+
+	<jsp:forward page="d3/CFW.html"></jsp:forward>
 </body>
 </html>

@@ -214,19 +214,19 @@ int c = 0;
         
         public static Recommendation formRecommendations(String userId) throws IOException{
         	
-        	FileInputStream fstream1 = new FileInputStream("ratings.txt");
+        	FileInputStream fstream1 = new FileInputStream("F:/Dev/workspace/DocApp/ratings.txt");
             DataInputStream in1 = new DataInputStream(fstream1);
             BufferedReader br1 = new BufferedReader(new InputStreamReader(in1));
             String strLine1;
         	
         		
         	
-        		FileInputStream fstream2 = new FileInputStream("SimMovsList.txt");
+        		FileInputStream fstream2 = new FileInputStream("F:/Dev/workspace/DocApp/SimMovsList.txt");
                 DataInputStream in2 = new DataInputStream(fstream2);
                 BufferedReader br2 = new BufferedReader(new InputStreamReader(in2));
                 String strLine2;
         		
-                FileInputStream fstream3 = new FileInputStream("AvgRatingsList.txt");
+                FileInputStream fstream3 = new FileInputStream("F:/Dev/workspace/DocApp/AvgRatingsList.txt");
                 DataInputStream in3 = new DataInputStream(fstream3);
                 BufferedReader br3 = new BufferedReader(new InputStreamReader(in3));
                 String strLine3;

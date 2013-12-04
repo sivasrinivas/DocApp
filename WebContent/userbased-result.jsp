@@ -1,3 +1,9 @@
+<%@page import="java.util.Random"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import="com.sivasrinivas.*" %>
+<%@ page import="org.json.simple.*" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,33 +53,35 @@
       <div class="well text-center">
 
         <h1>
-          Item based Recommendations
+        <!-- <img src="../assets/img/User.png" class="img-polaroid" style="height:100px; width:100px"> -->
+          User based Recommendations
         </h1>
       </div>
 
+	<!-- Java code -->
+	<% 
+		String userId = request.getParameter("userId");
+		String filePath = "F:/Dev/workspace/DocApp/WebContent/userJSON.json";
+		RecommendationsJSON.createJsonForUserBased(userId,filePath);
+		Double rand = new Random().nextDouble(); 
+	%>
+	<jsp:forward page="userbased-json.html"></jsp:forward>
+	
       <!-- Example row of columns -->
       <div class="row">
 
         <div class="span10 text-center">
 
-          <br><br>
-
-			<form method="post" action="itembased-result.jsp">
-	          <div class="offset2 input-prepend input-append">
-	            <span class="add-on btn-primary"><i class="icon icon-user icon-white"></i></span>
-	            <input class="span3" id="prependedInput" name="userId" type="text" placeholder="Enter user id">
-	            <button class="btn btn-primary">Submit</button>
-	          </div>
-			</form>
-		  
+          	<div class="offset2">
+            	
+        	</div>
         </div>
-        
       
       </div>
-		<br><br><br><br><br><br><br>
+
       <hr>
 
-      <footer>
+      <footer class="well">
         <p>&copy; RecFlix 2013</p>
       </footer>
 

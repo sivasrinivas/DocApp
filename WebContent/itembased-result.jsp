@@ -1,3 +1,4 @@
+<%@page import="java.util.Random"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="com.sivasrinivas.*" %>
@@ -62,7 +63,7 @@
 		String userId = request.getParameter("userId");
 		String filePath = "F:/Dev/workspace/DocApp/WebContent/userJSON.json";
 		RecommendationsJSON.createJsonForItemBased(userId,filePath);
-		
+		Double rand = new Random().nextDouble();; 
 	%>
 	<jsp:forward page="itembased-json.html"></jsp:forward>
 	

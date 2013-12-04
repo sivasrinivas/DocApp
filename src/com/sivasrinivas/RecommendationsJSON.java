@@ -25,14 +25,10 @@ public class RecommendationsJSON {
 	 public static void Driver(String [] args){
 
 		 String mahoutFileName = "UserBasedOutputnew.txt";
-//		 boolean userBased = Boolean.parseBoolean(args[2]);
-//		 boolean itemBased = Boolean.parseBoolean(args[3]);
 
-		 String userId = "1025579";
-		 createJsonForItemBased(userId, "F:/Dev/workspace/DocApp/WebContent/userJSON.json");
-		// RecommendationsJSON re = new RecommendationsJSON();
-		// re.createJsonForItemBased(userId);
-		 
+		 String userId = "1109700";
+		 createJsonForUserBased(userId, "F:/Dev/workspace/DocApp/userJSON.json");
+//		 createJsonForItemBased(userId, "F:/Dev/workspace/DocApp/userJSON.json");
 	 }
 	 
 	 public static void createJsonFromMahout(String userId, boolean userbased){
@@ -47,12 +43,9 @@ public class RecommendationsJSON {
 				try{
 					if(userbased){
 						dir = new File(UserBasedFileDir);
-
 					}
 					else{
 					   dir = new File(ItemBasedFileDir);
-
-
 					}
 					
 	                FileInputStream fstream2 = new FileInputStream("movie_titles.txt");
@@ -116,7 +109,7 @@ public class RecommendationsJSON {
 			result = temp.formRecommendations(userId);	
 
 		} catch(IOException ioe){
-		
+			ioe.printStackTrace();
 		}
 		JSONArray jsonRecArray = new JSONArray();
 		if(result != null){
@@ -144,21 +137,18 @@ public class RecommendationsJSON {
 			
 		
 	}
-	public static void createJsonForUserBased(String userId){/*
+	public static void createJsonForUserBased(String userId, String filePath){
 		UserRecommendation result = null;
-		StringBuilder fileName = new StringBuilder("userJSON.json");
+		StringBuilder fileName = new StringBuilder(filePath);
 		try{
-
 			result = RecommendationManager.formRecommendations(userId);	
-
-	} catch(IOException ioe){
-		
-	}
+		} catch(IOException ioe){
+			ioe.printStackTrace();
+		}
 	
 	JSONArray jsonRecArray = new JSONArray();
 		if(result != null)
 		{
-
 			for(int j= 0 ; j<result.recomCount; j++){
 				// adding last level of hierarchy that is rating
 				JSONObject jsonRatingObj = new JSONObject();
@@ -175,13 +165,12 @@ public class RecommendationsJSON {
 			}
 		}
 			JSONObject jsonUserObj = new JSONObject();
-			jsonUserObj.put("name", result.userid );
+			jsonUserObj.put("name", userId );
 			jsonUserObj.put("children", jsonRecArray);
-			
+			System.out.println(jsonUserObj.toJSONString());
 			writeJsonFile(fileName.toString(),jsonUserObj);
-			
 		
-	*/}
+	}
 	
 	 public static void writeJsonFile(String jsonFileFullPath, JSONObject jsonUserObj ){
 			try {
